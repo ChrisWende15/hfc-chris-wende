@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vom Stadion auf dein Spielfeld | Chris Wende</title>
+<meta name="description" content="Du hast uns im Stadion gesehen? Mehr Zeit, mehr Umsatz, weniger Stress – mit bis zu 80 % staatlicher Förderung. Mach den Förder-Check.">
+<style>
+  @font-face {
+    font-family: "Raleway";
+    src: url("raleway-var-latin.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --accent: #dd7251;
+    --accent-dark: #c65f40;
+    --ink: #0b0d0c;
+    --ink-soft: #3c4442;
+    --petrol-1: #0a2228;
+    --petrol-2: #14383f;
+    --gray-bg: #f5f6f6;
+    --white: #ffffff;
+    --radius: 6px;
+    --maxw: 1140px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--white); color:var(--ink); font-family:"Raleway","Helvetica Neue",Arial,sans-serif; line-height:1.65; }
+  h1,h2,h3 { line-height:1.18; font-weight:800; text-wrap:balance; }
+  .container { max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+  .underline { box-shadow: inset 0 -0.35em 0 rgba(221,114,81,0.55); }
+  .btn { display:inline-block; background:var(--accent); color:var(--white); font-weight:700; letter-spacing:1.2px; text-transform:uppercase; font-size:14.5px; padding:15px 28px; border-radius:var(--radius); text-decoration:none; transition:background .15s ease, transform .15s ease; }
+  .btn:hover { background:var(--accent-dark); transform:translateY(-1px); }
+  .btn-ghost { background:transparent; border:1.5px solid rgba(255,255,255,0.55); }
+  .btn-ghost:hover { background:rgba(255,255,255,0.1); }
+  .btn-small { padding:10px 18px; font-size:12.5px; }
+
+  /* Header */
+  .site-header { position:sticky; top:0; z-index:20; background:var(--petrol-1); border-bottom:1px solid rgba(255,255,255,0.08); }
+  .header-inner { display:flex; align-items:center; justify-content:space-between; padding-top:10px; padding-bottom:10px; }
+  .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--white); }
+  .brand img { height:46px; width:46px; }
+  .brand-text { font-weight:700; font-size:16.5px; line-height:1.2; }
+  .brand-text small { display:block; font-weight:500; font-size:11.5px; color:rgba(255,255,255,0.65); letter-spacing:0.3px; }
+
+  /* Hero */
+  .hero { background:linear-gradient(135deg, var(--petrol-1) 0%, var(--petrol-2) 70%); color:var(--white); padding:68px 0 0; }
+  .hero-inner { text-align:center; }
+  .badge { display:inline-block; color:#ffd9c9; background:rgba(221,114,81,0.16); border:1px solid rgba(221,114,81,0.5); letter-spacing:2.5px; font-size:12.5px; font-weight:700; text-transform:uppercase; padding:8px 18px; border-radius:100px; margin-bottom:26px; }
+  .hero h1 { font-size:clamp(32px, 5.2vw, 54px); margin-bottom:18px; }
+  .hero .sub { color:rgba(255,255,255,0.82); font-size:clamp(17px, 2.1vw, 20px); max-width:660px; margin:0 auto 32px; }
+  .cta-zeile { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:56px; }
+  .bande-wrap { position:relative; width:100%; max-width:1200px; margin:0 auto; border-radius:10px 10px 0 0; overflow:hidden; box-shadow:0 -14px 60px rgba(0,0,0,0.45); }
+  .bande-bild { display:block; width:100%; }
+  /* Video liegt exakt auf der Bande im Stadionbild (42.9% von oben, 21.4% hoch) */
+  .bande-video { position:absolute; left:0; width:100%; top:42.9%; height:21.4%; object-fit:fill; }
+
+  /* Alltag */
+  .alltag { background:var(--white); padding:84px 0; }
+  .alltag h2 { font-size:clamp(26px, 3.8vw, 38px); text-align:center; margin-bottom:12px; }
+  .alltag .intro { text-align:center; color:var(--ink-soft); max-width:600px; margin:0 auto 44px; }
+  .szenen { display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; max-width:900px; margin:0 auto 36px; }
+  .szene-karte { background:var(--gray-bg); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; padding:24px 26px; }
+  .szene-karte .zeit { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:8px; }
+  .szene-karte p { font-size:16.5px; color:var(--ink); font-weight:500; }
+  .alltag .wendepunkt { text-align:center; font-size:clamp(19px, 2.4vw, 23px); font-weight:700; max-width:640px; margin:0 auto; }
+
+  /* Drei Hebel */
+  .hebel { background:var(--gray-bg); padding:84px 0; }
+  .hebel h2 { font-size:clamp(26px, 3.8vw, 38px); text-align:center; margin-bottom:44px; }
+  .hebel-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
+  .hebel-karte { background:var(--white); border-radius:var(--radius); padding:30px; box-shadow:0 2px 14px rgba(10,34,40,0.07); }
+  .hebel-karte .nr { font-size:13px; font-weight:800; letter-spacing:2px; color:var(--accent); display:block; margin-bottom:10px; }
+  .hebel-karte h3 { font-size:20px; margin-bottom:10px; }
+  .hebel-karte p { color:var(--ink-soft); font-size:15.5px; }
+
+  /* Förder-Check */
+  .check { background:linear-gradient(135deg, var(--petrol-1) 0%, var(--petrol-2) 70%); color:var(--white); padding:84px 0; }
+  .check .kopf { text-align:center; max-width:640px; margin:0 auto 42px; }
+  .check h2 { font-size:clamp(26px, 3.8vw, 38px); margin-bottom:14px; }
+  .check .kopf p { color:rgba(255,255,255,0.8); }
+  .check-karte { background:var(--white); color:var(--ink); border-radius:10px; max-width:680px; margin:0 auto; padding:38px; box-shadow:0 18px 60px rgba(0,0,0,0.35); }
+  .frage { display:none; }
+  .frage.aktiv { display:block; }
+  .frage h3 { font-size:21px; margin-bottom:20px; }
+  .frage .optionen { display:grid; gap:12px; }
+  .opt { text-align:left; background:var(--gray-bg); border:1.5px solid transparent; color:var(--ink); font-size:16px; font-weight:600; padding:15px 18px; border-radius:var(--radius); cursor:pointer; transition:border-color .15s ease, background .15s ease; font-family:inherit; }
+  .opt:hover { border-color:var(--accent); background:#fdf1ec; }
+  .schritt-anzeige { color:var(--ink-soft); font-size:12.5px; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; font-weight:700; }
+  .balken { height:5px; background:#e4e8e8; border-radius:4px; margin-bottom:28px; overflow:hidden; }
+  .balken div { height:100%; width:25%; background:var(--accent); border-radius:4px; transition:width .3s ease; }
+  #ergebnis { display:none; text-align:center; }
+  #ergebnis.aktiv { display:block; }
+  #ergebnis .quote { font-size:62px; font-weight:800; color:var(--accent); margin:8px 0 2px; }
+  #ergebnis .quote small { font-size:24px; }
+  #ergebnis h3 { font-size:24px; margin-bottom:10px; }
+  #ergebnis p { color:var(--ink-soft); margin-bottom:12px; }
+  #ergebnis .hinweis { font-size:12.5px; color:var(--ink-soft); opacity:0.85; margin-top:18px; line-height:1.55; }
+  #ergebnis .btn { margin-top:14px; }
+
+  /* Spielfeld / Zitat */
+  .spielfeld { background:var(--white); padding:84px 0; }
+  .spielfeld .grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .spielfeld h2 { font-size:clamp(26px, 3.6vw, 36px); margin-bottom:18px; }
+  .spielfeld p { color:var(--ink-soft); margin-bottom:14px; }
+  .spielfeld ul { list-style:none; margin-top:10px; }
+  .spielfeld li { padding-left:30px; position:relative; margin-bottom:13px; }
+  .spielfeld li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-weight:800; }
+  .zitatkarte { background:var(--petrol-1); color:var(--white); border-radius:10px; padding:32px; }
+  .zitatkarte blockquote { font-size:21px; line-height:1.5; font-weight:600; margin-bottom:16px; }
+  .zitatkarte blockquote::before { content:'„'; color:var(--accent); font-size:40px; line-height:0; vertical-align:-12px; margin-right:4px; }
+  .zitatkarte cite { color:rgba(255,255,255,0.65); font-style:normal; font-size:14px; }
+
+  /* Abschluss */
+  .abschluss { background:var(--gray-bg); text-align:center; padding:90px 0; }
+  .abschluss h2 { font-size:clamp(28px, 4vw, 42px); margin-bottom:14px; }
+  .abschluss p { color:var(--ink-soft); max-width:560px; margin:0 auto 30px; }
+
+  footer { background:var(--petrol-1); color:rgba(255,255,255,0.7); padding:30px 0; }
+  footer .container { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:13.5px; }
+  footer a { color:rgba(255,255,255,0.7); }
+
+
+  /* Über Chris */
+  .ueber { background:var(--petrol-2); color:var(--white); padding:84px 0; }
+  .ueber .grid { display:grid; grid-template-columns:0.9fr 1.1fr; gap:52px; align-items:center; }
+  .ueber h2 { font-size:clamp(26px, 3.6vw, 36px); margin-bottom:18px; }
+  .ueber p { color:rgba(255,255,255,0.84); margin-bottom:14px; }
+  .ueber-bild img { width:100%; border-radius:10px; box-shadow:0 14px 50px rgba(0,0,0,0.4); display:block; }
+  .ueber-zitat { border-left:3px solid var(--accent); padding:4px 0 4px 18px; font-size:19px; font-weight:600; line-height:1.5; margin:18px 0 22px; }
+  .bekannt { display:flex; align-items:center; gap:22px; flex-wrap:wrap; margin-top:10px; }
+  .bekannt span { font-size:12.5px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.55); font-weight:700; }
+  .bekannt img { filter:brightness(0) invert(1); opacity:0.85; }
+
+  /* Typo-Feinschliff */
+  p { text-wrap:pretty; }
+  .hero .sub { max-width:620px; }
+  .alltag .intro { max-width:560px; text-wrap:balance; }
+  .alltag .wendepunkt { text-wrap:balance; }
+  .check .kopf p { text-wrap:pretty; }
+
+
+  /* Navigation */
+  .main-nav { display:flex; align-items:center; gap:26px; }
+  .main-nav a:not(.btn) { color:rgba(255,255,255,0.85); text-decoration:none; font-size:15px; font-weight:600; }
+  .main-nav a:not(.btn):hover { color:var(--accent); }
+  @media (max-width: 920px) { .main-nav a:not(.btn) { display:none; } }
+
+  /* Kundenstimmen */
+  .stimmen { background:var(--petrol-1); color:var(--white); padding:84px 0; }
+  .stimmen h2 { font-size:clamp(26px, 3.8vw, 38px); text-align:center; margin-bottom:14px; }
+  .stimmen-intro { color:rgba(255,255,255,0.8); text-align:center; max-width:640px; margin:0 auto 40px; }
+  .stimmen-video { display:block; width:100%; max-width:960px; margin:0 auto; border-radius:10px; box-shadow:0 18px 60px rgba(0,0,0,0.45); }
+
+  /* Trustpilot */
+  .trust { background:var(--white); padding:84px 0; }
+  .trust-kopf { text-align:center; margin-bottom:40px; }
+  .sterne { color:#00B67A; font-size:46px; letter-spacing:8px; margin-bottom:10px; }
+  .trust-score { color:var(--ink-soft); font-size:18px; }
+  .trust-score b { color:var(--ink); }
+  .trust-zitate { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1060px; margin:0 auto 30px; }
+  .trust-zitate blockquote { background:var(--gray-bg); border-radius:var(--radius); padding:24px; font-size:15.5px; color:var(--ink); line-height:1.6; }
+  .trust-zitate cite { display:block; margin-top:12px; color:var(--ink-soft); font-style:normal; font-weight:700; font-size:13.5px; }
+  .trust-link { text-align:center; }
+  .trust-link a { color:var(--accent); font-weight:700; text-decoration:none; }
+  @media (max-width: 820px) { .trust-zitate { grid-template-columns:1fr; } }
+
+  @media (max-width: 820px) {
+    .szenen { grid-template-columns:1fr; }
+    .hebel-grid { grid-template-columns:1fr; }
+    .spielfeld .grid { grid-template-columns:1fr; }
+    .ueber .grid { grid-template-columns:1fr; }
+    .check-karte { padding:26px 18px; }
+    .brand-text small { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#top">
+      <img src="logo.png" alt="Chris Wende">
+      <span class="brand-text">Chris Wende<small>Wende High Performance Consulting GmbH</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <a href="#alltag">Kommt dir das bekannt vor?</a>
+      <a href="#foerder-check">Förder-Check</a>
+      <a href="#stimmen">Kundenstimmen</a>
+      <a href="#ueber">Über Chris</a>
+      <a class="btn btn-small js-buchung" href="#">Kostenloses Erstgespräch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="badge">⚽ Du hast uns im Stadion gesehen</span>
+    <h1>Vom Stadion auf <span class="underline">dein Spielfeld</span>.</h1>
+    <p class="sub">90 Minuten Vollgas kann dein Team auch im Unternehmen – wenn Führung, Prozesse und Energie stimmen. Dafür sorgen wir. Mit bis zu 80&nbsp;% staatlicher Förderung.</p>
+    <div class="cta-zeile">
+      <a class="btn" href="#foerder-check">Förder-Check starten</a>
+      <a class="btn btn-ghost js-buchung" href="#">Direkt Gespräch buchen</a>
+    </div>
+  </div>
+  <div class="bande-wrap">
+    <img class="bande-bild" src="stadion-bande.jpg" alt="Stadionansicht mit LED-Bande">
+    <video class="bande-video" autoplay muted loop playsinline preload="auto" poster="stadion-bande.jpg" aria-label="LED-Bandenspot von Wende High Performance Consulting">
+      <source src="bande-video.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<section class="alltag" id="alltag">
+  <div class="container">
+    <h2>Kommt dir das <span class="underline">bekannt</span> vor?</h2>
+    <p class="intro">Vier Szenen aus dem Alltag von Inhabern und Geschäftsführern, die wir fast wöchentlich hören:</p>
+    <div class="szenen">
+      <div class="szene-karte">
+        <span class="zeit">Montag, 8:02 Uhr</span>
+        <p>„Chef, haben Sie mal fünf Minuten?“ — Es werden 45. Und um 9 Uhr wartet schon der Nächste vor der Tür.</p>
+      </div>
+      <div class="szene-karte">
+        <span class="zeit">Dienstag, 19:30 Uhr</span>
+        <p>Du machst als Letzter das Licht aus. Zu Hause klappst du den Laptop nochmal auf — „nur kurz E-Mails“.</p>
+      </div>
+      <div class="szene-karte">
+        <span class="zeit">Donnerstag, 14:15 Uhr</span>
+        <p>Das Angebot, das nur du schreiben kannst. Die Preise, die nur du kennst. Der Kunde, den nur du beruhigen kannst.</p>
+      </div>
+      <div class="szene-karte">
+        <span class="zeit">Urlaub, Tag 3</span>
+        <p>Strand, Familie — und dein Handy. Drei Anrufe aus der Firma vor dem Mittagessen. Ohne dich läuft nichts.</p>
+      </div>
+    </div>
+    <p class="wendepunkt">Im Fußball würde man sagen: Du spielst auf allen elf Positionen <span class="underline">gleichzeitig</span>. Kein Team der Welt gewinnt so.</p>
+  </div>
+</section>
+
+<section class="hebel">
+  <div class="container">
+    <h2>Drei Hebel, die das ändern</h2>
+    <div class="hebel-grid">
+      <div class="hebel-karte"><span class="nr">01 · MEHR ZEIT</span><h3>Starke Führung</h3><p>Dein Team weiß, wie „gut“ aussieht, und spielt zusammen statt nebeneinander. Du gibst die Taktik vor — statt jeden Ball selbst zu spielen.</p></div>
+      <div class="hebel-karte"><span class="nr">02 · MEHR UMSATZ</span><h3>Einfache Prozesse</h3><p>Abläufe, die ohne dich funktionieren. Kein Flurfunk, keine Doppelarbeit — und Wissen, das in der Firma steckt statt nur in deinem Kopf.</p></div>
+      <div class="hebel-karte"><span class="nr">03 · WENIGER STRESS</span><h3>Smarte Automatisierung</h3><p>KI und digitale Werkzeuge übernehmen die Laufarbeit: Angebote, Dokumentation, Wiedervorlagen. Dein Team macht die Tore.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="check" id="foerder-check">
+  <div class="container">
+    <div class="kopf">
+      <h2>Der Förder-Check</h2>
+      <p>Vier kurze Fragen – und du weißt, ob dein Unternehmen die Grundvoraussetzungen für staatlich geförderte Beratung erfüllt. Dauert keine 60 Sekunden. Kein Abseits, versprochen.</p>
+    </div>
+    <div class="check-karte">
+      <div id="fragen">
+        <div class="schritt-anzeige">Frage <span id="schritt-nr">1</span> von 4</div>
+        <div class="balken"><div id="balken-fuellung"></div></div>
+
+        <div class="frage aktiv" data-nr="1">
+          <h3>Wo sitzt dein Unternehmen?</h3>
+          <div class="optionen">
+            <button class="opt" onclick="antwort(1,'ost')">Sachsen-Anhalt, Sachsen oder Thüringen</button>
+            <button class="opt" onclick="antwort(1,'de')">Anderes Bundesland</button>
+          </div>
+        </div>
+
+        <div class="frage" data-nr="2">
+          <h3>Wie viele Mitarbeitende hast du?</h3>
+          <div class="optionen">
+            <button class="opt" onclick="antwort(2,'klein')">1 bis 9</button>
+            <button class="opt" onclick="antwort(2,'mittel')">10 bis 249</button>
+            <button class="opt" onclick="antwort(2,'gross')">250 oder mehr</button>
+          </div>
+        </div>
+
+        <div class="frage" data-nr="3">
+          <h3>Seit wann gibt es dein Unternehmen?</h3>
+          <div class="optionen">
+            <button class="opt" onclick="antwort(3,'jung')">Weniger als 2 Jahre</button>
+            <button class="opt" onclick="antwort(3,'etabliert')">2 Jahre oder länger</button>
+          </div>
+        </div>
+
+        <div class="frage" data-nr="4">
+          <h3>Wo drückt der Schuh am meisten?</h3>
+          <div class="optionen">
+            <button class="opt" onclick="antwort(4,'zeit')">Zeit &amp; Organisation – alles hängt an mir</button>
+            <button class="opt" onclick="antwort(4,'team')">Führung &amp; Team – wir spielen nicht zusammen</button>
+            <button class="opt" onclick="antwort(4,'prozesse')">Prozesse &amp; Digitalisierung – zu viel Handarbeit</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="ergebnis">
+        <div class="schritt-anzeige">Dein Ergebnis</div>
+        <h3 id="erg-titel">Starke Ausgangslage!</h3>
+        <div class="quote"><span id="erg-quote">bis zu 80</span><small>&nbsp;%</small></div>
+        <p id="erg-text"></p>
+        <a class="btn js-buchung" href="#">Fördergespräch sichern – kostenlos</a>
+        <p class="hinweis">Unverbindliche Ersteinschätzung, keine Förderzusage. Fördersatz und Programm (z.&nbsp;B. INQA-Coaching, BAFA-Unternehmensberatung) hängen von Region, Unternehmensgröße und Förderberechtigung ab. Die Details klären wir im Gespräch – inklusive Antragstellung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stimmen" id="stimmen">
+  <div class="container">
+    <h2>Hör nicht auf uns — <span class="underline">hör auf unsere Kunden</span>.</h2>
+    <p class="stimmen-intro">Acht Unternehmer und Führungskräfte, ein Konsens: mehr Zeit, mehr Umsatz, weniger Stress. Darunter Sebastian Fritz — Vermögensberater aus Halle (Saale).</p>
+    <video class="stimmen-video" controls preload="metadata" poster="kundenstimmen-poster.jpg">
+      <source src="kundenstimmen.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<section class="spielfeld">
+  <div class="container grid">
+    <div>
+      <h2>Ein Spiel gewinnt man nicht mit <span class="underline">Einzelaktionen</span>.</h2>
+      <p>Im Fußball entscheidet das System: klare Positionen, eingespielte Abläufe, Kondition über 90 Minuten. In deinem Unternehmen ist es genauso.</p>
+      <ul>
+        <li><strong>Analyse:</strong> Wir schauen gemeinsam auf dein Spielfeld – wo versickert Zeit, wo hängt alles an dir?</li>
+        <li><strong>Taktik:</strong> Klare Strukturen für Führung, Prozesse und deinen Kalender – individuell, nicht von der Stange.</li>
+        <li><strong>Umsetzung:</strong> Wir bleiben an deiner Seite, bis es läuft – gefördert mit bis zu 80&nbsp;%.</li>
+      </ul>
+    </div>
+    <div class="zitatkarte">
+      <blockquote>Ich gehe um 17&nbsp;Uhr aus der Firma – und habe danach nichts mehr zu tun. Das war vor einem Jahr unvorstellbar.“</blockquote>
+      <cite>Kundenstimme aus dem High-Performance-Training · über 500 begleitete Unternehmer</cite>
+    </div>
+  </div>
+</section>
+
+
+<section class="ueber" id="ueber">
+  <div class="container grid">
+    <div class="ueber-bild"><img src="chris-buecherwand.webp" alt="Chris Wende, Gründer und Geschäftsführer der Wende High Performance Consulting GmbH" loading="lazy"></div>
+    <div>
+      <h2>Wer dahinter <span class="underline">steht</span></h2>
+      <p>Ich bin Chris Wende, Gründer und Geschäftsführer der Wende High Performance Consulting GmbH in Leipzig. Seit 2018 habe ich über 500 Unternehmer, Selbstständige und Teams dabei begleitet, klarer zu führen, sauber zu strukturieren und Leistung ins Team zu bringen.</p>
+      <p>Mein Antrieb ist immer derselbe: Unternehmer raus aus dem Hamsterrad. Einer meiner Kunden – 30 Mitarbeiter, guter Umsatz, aber komplett gefangen im Tagesgeschäft – sagte mir nach ein paar Wochen Zusammenarbeit:</p>
+      <blockquote class="ueber-zitat">„Ich hatte heute das erste Mal einen Tag, an dem ich nicht gebraucht wurde – und es hat trotzdem funktioniert.“</blockquote>
+      <div class="bekannt"><span>Bekannt aus:</span>
+        <img src="unternehmerjournal.webp" alt="Unternehmer Journal" height="26">
+        <img src="gewinnermagazin.webp" alt="Gewinner Magazin" height="20">
+        <img src="erfolgmagazin.webp" alt="Erfolg Magazin" height="26">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container">
+    <div class="trust-kopf">
+      <div class="sterne" aria-label="4,8 von 5 Sternen">★★★★★</div>
+      <div class="trust-score"><b>4,8 von 5</b> · 56 Bewertungen auf Trustpilot · 96&nbsp;% vergeben 5 Sterne</div>
+    </div>
+    <div class="trust-zitate">
+      <blockquote>„Wirklich lebensverändernd. Es ist immer wieder beeindruckend, was für tiefe und offene Räume sich kreieren.“<cite>Vivian Hampp</cite></blockquote>
+      <blockquote>„Endlich ein Coaching, das diesen Namen auch verdient. Funktionierende Tools, die direkt in den Alltag integriert werden können.“<cite>Florian G.</cite></blockquote>
+      <blockquote>„Chris hat eine Eselsgeduld und schafft es, dass man selbst die Lösung für seine Probleme findet.“<cite>Rainer Dörfler</cite></blockquote>
+    </div>
+    <p class="trust-link"><a href="https://de.trustpilot.com/review/chris-wende.com" target="_blank" rel="noopener">Alle 56 Bewertungen auf Trustpilot ansehen →</a></p>
+  </div>
+</section>
+
+<section class="abschluss">
+  <div class="container">
+    <h2>Anpfiff: dein <span class="underline">kostenloses Erstgespräch</span>.</h2>
+    <p>30 Minuten, in denen wir auf dein Unternehmen schauen: Wo liegt der größte Hebel – und welche Förderung passt zu dir? Kein Pitch. Ein echtes Gespräch.</p>
+    <a class="btn js-buchung" href="#">Jetzt Termin sichern</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span>© Wende High Performance Consulting GmbH · Kurt-Eisner-Str. 94 · 04275 Leipzig</span>
+    <span><a href="https://www.chris-wende.com/impressum/">Impressum</a> · <a href="https://www.chris-wende.com/datenschutz/">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script>
+// >>> BUCHUNGSLINK: hier EINMAL ändern (z. B. auf Calendly), gilt für alle Buttons <<<
+const BUCHUNGSLINK = "https://calendly.com/christoph_wende/zeitfresser-analyse";
+document.querySelectorAll(".js-buchung").forEach(a => a.href = BUCHUNGSLINK);
+
+const antworten = {};
+function antwort(nr, wert) {
+  antworten[nr] = wert;
+  if (nr < 4) {
+    document.querySelector(`.frage[data-nr="${nr}"]`).classList.remove('aktiv');
+    document.querySelector(`.frage[data-nr="${nr+1}"]`).classList.add('aktiv');
+    document.getElementById('schritt-nr').textContent = nr + 1;
+    document.getElementById('balken-fuellung').style.width = ((nr+1)/4*100) + '%';
+  } else {
+    zeigeErgebnis();
+  }
+}
+function zeigeErgebnis() {
+  document.getElementById('fragen').style.display = 'none';
+  document.getElementById('ergebnis').classList.add('aktiv');
+  const klein = antworten[2] !== 'gross';
+  const quote = document.getElementById('erg-quote');
+  const titel = document.getElementById('erg-titel');
+  const text = document.getElementById('erg-text');
+  const thema = { zeit: 'Zeit & Organisation', team: 'Führung & Team', prozesse: 'Prozesse & Digitalisierung' }[antworten[4]];
+  if (klein) {
+    quote.textContent = 'bis zu 80';
+    titel.textContent = 'Starke Ausgangslage!';
+    text.innerHTML = `Dein Unternehmen erfüllt voraussichtlich die Grundvoraussetzungen für geförderte Beratung – beim Thema <strong>${thema}</strong> sind je nach Programm bis zu 80&nbsp;% Förderung der Beratungskosten möglich.`;
+  } else {
+    quote.textContent = 'individuell';
+    quote.style.fontSize = '40px';
+    titel.textContent = 'Lass uns das persönlich anschauen.';
+    text.innerHTML = `Für Unternehmen deiner Größe gelten besondere Förderbedingungen – beim Thema <strong>${thema}</strong> gibt es trotzdem gute Wege. Die passenden Programme klären wir im Gespräch.`;
+  }
+}
+</script>
+</body>
+</html>
